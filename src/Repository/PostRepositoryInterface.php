@@ -1,0 +1,10 @@
+<?php
+
+
+namespace App\Repository;
+
+
+interface PostRepositoryInterface
+{
+    public function save($post);
+}

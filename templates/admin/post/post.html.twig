@@ -1,0 +1,22 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body %}
+<section class="blog-list px-3 py-5 p-md-5">
+    {{ form_start(form) }}
+        {{ form_row(form.title) }}
+        {{ form_row(form.content,{'attr' : {'class':'editor'} }) }}
+        {{ form_row(form.imageFile) }}
+        {% if post is defined %}
+                {% if post.image %}
+                        <img class="img-thumbnail" height="250" width="250" style="margin-bottom: 50px" src="{{ post.imageWebLocation }}" alt="post-image">
+                {% endif %}
+        {% endif %}
+        <button style="display: block" class="btn btn-primary">{{ edit is defined ? "Edit Post" : "Add Post" }}</button>
+    {{ form_end(form) }}
+</section>
+{% endblock %}
+
+
+{% block javascripts %}
+
+{% endblock %}
