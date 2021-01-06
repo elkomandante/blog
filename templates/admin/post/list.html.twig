@@ -1,0 +1,17 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}List of all posts.{% endblock %}
+
+{% block info %}
+    {% include 'admin/info.html.twig' with {'infoTitle' : 'List Of All posts' } %}
+{% endblock %}
+
+{% block body %}
+    <section class="blog-list px-3 py-5 p-md-5">
+        <ul class="list-group">
+            {% for post in posts %}
+                <li class="list-group-item text-center"><a href="{{ path('post-edit',{'id': post.id}) }}">{{ post.title }}</a></li>
+            {% endfor %}
+        </ul>
+    </section>
+{% endblock %}

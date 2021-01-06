@@ -6,6 +6,7 @@ namespace App\Service\Post;
 
 use App\Entity\Post;
 use App\Repository\PostRepositoryInterface;
+use Doctrine\Common\Collections\Collection;
 
 class PostService
 {
@@ -18,5 +19,10 @@ class PostService
 
     public function save(Post $post){
         $this->postRepository->save($post);
+    }
+
+    public function findAllPosts(): ?array
+    {
+        return $this->postRepository->findAll();
     }
 }

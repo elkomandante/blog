@@ -9,6 +9,7 @@ use App\Form\PostType;
 use App\ImageUpload\ImageUploadInterface;
 use App\Service\FileRemove\FileRemoverInterface;
 use App\Service\Post\PostService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -36,8 +37,11 @@ class AdminController extends AbstractController
      * @param ImageUploadInterface $imageUpload
      * @return RedirectResponse|Response
      */
-    public function addPost(Request $request, PostService $postService, ImageUploadInterface $imageUpload)
-    {
+    public function addPost(
+        Request $request,
+        PostService $postService,
+        ImageUploadInterface $imageUpload
+    ){
         $form = $this->createForm(PostType::class);
         $form->handleRequest($request);
 
@@ -46,7 +50,6 @@ class AdminController extends AbstractController
             $post = $form->getData();
             $imageFile = $form['imageFile']->getData();
             if($imageFile instanceof UploadedFile){
-
                 $post->setImage($imageUpload->upload($imageFile, Post::imageSubDir));
             }
             $postService->save($post);
@@ -70,8 +73,13 @@ class AdminController extends AbstractController
      * @param ImageUploadInterface $imageUpload
      * @return Response
      */
-    public function postEdit(Request $request,Post $post, PostService $postService, FileRemoverInterface $fileRemover, ImageUploadInterface $imageUpload) : Response
-    {
+    public function postEdit(
+        Request $request,
+        Post $post,
+        PostService $postService,
+        FileRemoverInterface $fileRemover,
+        ImageUploadInterface $imageUpload
+    ) : Response {
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
@@ -81,7 +89,6 @@ class AdminController extends AbstractController
                     $fileRemover->removeImage($post->getImage(),Post::imageSubDir);
                 }
                 $post->setImage($imageUpload->upload($form['imageFile']->getData(),Post::imageSubDir));
-
             }
             $postService->save($post);
         }
@@ -90,6 +97,20 @@ class AdminController extends AbstractController
             'form' => $form->createView(),
             'post' => $post,
             'edit' => true
+        ]);
+    }
+
+    /**
+     * @Route (path="/admin/posts", name="post-list")
+     * @param PostService $postService
+     * @return Response
+     */
+    public function postList(
+        PostService $postService
+    ): Response {
+        $posts = $postService->findAllPosts();
+        return $this->render('admin/post/list.html.twig', [
+            'posts' => $posts
         ]);
     }
 

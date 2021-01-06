@@ -23,6 +23,7 @@
         {% include 'admin/left-sidebar.html.twig' %}
     {% endblock %}
     <div class="main-wrapper">
+        {% block info %}{% endblock %}
         {% block body %}{% endblock %}
     </div>
 
