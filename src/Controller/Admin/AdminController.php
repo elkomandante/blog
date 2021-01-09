@@ -49,8 +49,12 @@ class AdminController extends AbstractController
             /*** @var $post Post */
             $post = $form->getData();
             $imageFile = $form['imageFile']->getData();
+            $thumbnailImageFile = $form['thumbnailImageFile']->getData();
             if($imageFile instanceof UploadedFile){
                 $post->setImage($imageUpload->upload($imageFile, Post::imageSubDir));
+            }
+            if($thumbnailImageFile instanceof UploadedFile){
+                $post->setThumbnailImage($imageUpload->upload($thumbnailImageFile, Post::imageSubDir));
             }
             $postService->save($post);
 
@@ -84,12 +88,22 @@ class AdminController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-            if($form['imageFile']){
+            $imageFile = $form['imageFile']->getData();
+            $thumbnailImageFile = $form['thumbnailImageFile']->getData();
+            if($imageFile){
                 if($post->getImage()){
                     $fileRemover->removeImage($post->getImage(),Post::imageSubDir);
                 }
-                $post->setImage($imageUpload->upload($form['imageFile']->getData(),Post::imageSubDir));
+                $post->setImage($imageUpload->upload($imageFile,Post::imageSubDir));
             }
+
+            if($thumbnailImageFile){
+                if($post->getThumbnailImage()){
+                    $fileRemover->removeImage($post->getThumbnailImage(),Post::imageSubDir);
+                }
+                $post->setThumbnailImage($imageUpload->upload($thumbnailImageFile,Post::imageSubDir));
+            }
+
             $postService->save($post);
         }
 

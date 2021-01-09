@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -17,6 +18,11 @@ class PostRepository extends ServiceEntityRepository implements PostRepositoryIn
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Post::class);
+    }
+
+    public function getPageOfPostsQueryBuilder(): QueryBuilder
+    {
+        return $this->createQueryBuilder('p');
     }
 
     // /**

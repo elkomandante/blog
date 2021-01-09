@@ -26,6 +26,11 @@ class PostType extends AbstractType
                     new NotBlank()
                 ]
             ])
+            ->add('excerpt', null, [
+                'constraints' => [
+                    new NotBlank()
+                ]
+            ])
             ->add('imageFile', FileType::class, [
                 'constraints' => [
                     new Image([
@@ -35,6 +40,19 @@ class PostType extends AbstractType
                 'mapped' => false,
                 'required' =>false
             ])
+            ->add('thumbnailImageFile', FileType::class, [
+                'constraints' => [
+                    new Image([
+                        'maxSize' => '1024k'
+                    ])
+                ],
+                'mapped' => false,
+                'required' =>false
+            ])
+            ->add('isPublished',null , [
+                    'required' => false
+                ]
+            )
         ;
     }
 

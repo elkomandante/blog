@@ -38,11 +38,30 @@ class Post
     private $content;
 
     /**
+     * @ORM\Column (type="text")
+     */
+    private $excerpt;
+
+    /**
+     * @ORM\Column (type="boolean")
+     */
+    private $isPublished;
+
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $image;
 
+
+    /**
+     * @ORM\Column (type="string", nullable=true)
+     */
+    private $thumbnailImage;
+
     private $imageWebLocation;
+
+    private $thumbnailImageWebLocation;
 
 
     /**
@@ -52,6 +71,7 @@ class Post
     private $timeAdded;
 
     /**
+     * @Gedmo\Timestampable(on="change", field="isPublished", value="true")
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $timePublished;
@@ -154,6 +174,70 @@ class Post
     public function setImageWebLocation($imageWebLocation): void
     {
         $this->imageWebLocation = $imageWebLocation;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getExcerpt()
+    {
+        return $this->excerpt;
+    }
+
+    /**
+     * @param mixed $excerpt
+     */
+    public function setExcerpt($excerpt): void
+    {
+        $this->excerpt = $excerpt;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getThumbnailImage()
+    {
+        return $this->thumbnailImage;
+    }
+
+    /**
+     * @param mixed $thumbnailImage
+     */
+    public function setThumbnailImage($thumbnailImage): void
+    {
+        $this->thumbnailImage = $thumbnailImage;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getThumbnailImageWebLocation()
+    {
+        return $this->thumbnailImageWebLocation;
+    }
+
+    /**
+     * @param mixed $thumbnailImageWebLocation
+     */
+    public function setThumbnailImageWebLocation($thumbnailImageWebLocation): void
+    {
+        $this->thumbnailImageWebLocation = $thumbnailImageWebLocation;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIsPublished()
+    {
+        return $this->isPublished;
+    }
+
+    /**
+     * @param mixed $isPublished
+     */
+    public function setIsPublished($isPublished): void
+    {
+        $this->isPublished = $isPublished;
     }
 
 }

@@ -6,15 +6,18 @@ namespace App\Service\Post;
 
 use App\Entity\Post;
 use App\Repository\PostRepositoryInterface;
-use Doctrine\Common\Collections\Collection;
+use App\Service\Paginator\Paginator;
+
 
 class PostService
 {
     private $postRepository;
+    private $paginator;
 
-    public function __construct(PostRepositoryInterface $postRepository)
+    public function __construct(PostRepositoryInterface $postRepository, Paginator $paginator)
     {
         $this->postRepository = $postRepository;
+        $this->paginator = $paginator;
     }
 
     public function save(Post $post){
@@ -25,4 +28,14 @@ class PostService
     {
         return $this->postRepository->findAll();
     }
+
+    public function getPageOfPosts(int $page = 1, int $limit = 10)
+    {
+        return $this->paginator->paginateQuery(
+          $this->postRepository->getPageOfPostsQueryBuilder(),
+            $page,
+            $limit
+        );
+    }
+
 }

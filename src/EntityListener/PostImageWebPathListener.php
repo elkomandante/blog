@@ -18,5 +18,6 @@ class PostImageWebPathListener
     public function postLoad(Post $post)
     {
         $post->setImageWebLocation(sprintf("%s%s/%s", $this->imageUploadWebDir,Post::imageSubDir,$post->getImage()));
+        $post->setThumbnailImageWebLocation(sprintf("%s%s/%s", $this->imageUploadWebDir,Post::imageSubDir,$post->getThumbnailImage()));
     }
 }
