@@ -4,6 +4,9 @@
 <section class="blog-list px-3 py-5 p-md-5">
     {{ form_start(form) }}
         {{ form_row(form.title) }}
+        {{ form_row(form.metaTitle) }}
+        {{ form_row(form.metaDescription) }}
+        {{ form_row(form.metaKeywords) }}
         {{ form_row(form.content) }}
         {{ form_row(form.excerpt) }}
         {{ form_row(form.imageFile) }}

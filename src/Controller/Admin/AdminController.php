@@ -9,7 +9,6 @@ use App\Form\PostType;
 use App\ImageUpload\ImageUploadInterface;
 use App\Service\FileRemove\FileRemoverInterface;
 use App\Service\Post\PostService;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\RedirectResponse;

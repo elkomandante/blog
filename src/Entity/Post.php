@@ -5,12 +5,15 @@ namespace App\Entity;
 use App\Repository\PostRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @ORM\Entity(repositoryClass=PostRepository::class)
  */
 class Post
 {
+    use TimestampableEntity;
+    use PageMetaFriendlyEntity;
 
     const imageSubDir = 'post';
 
@@ -43,7 +46,7 @@ class Post
     private $excerpt;
 
     /**
-     * @ORM\Column (type="boolean")
+     * @ORM\Column (type="boolean", nullable=true)
      */
     private $isPublished;
 
@@ -64,17 +67,7 @@ class Post
     private $thumbnailImageWebLocation;
 
 
-    /**
-     * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(type="datetime")
-     */
-    private $timeAdded;
 
-    /**
-     * @Gedmo\Timestampable(on="change", field="isPublished", value="true")
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $timePublished;
 
 
     public function getId(): ?int
@@ -106,136 +99,83 @@ class Post
         return $this;
     }
 
-    public function getTimeAdded(): ?\DateTimeInterface
-    {
-        return $this->timeAdded;
-    }
-
-    public function setTimeAdded(\DateTimeInterface $timeAdded): self
-    {
-        $this->timeAdded = $timeAdded;
-
-        return $this;
-    }
-
-    public function getTimePublished(): ?\DateTimeInterface
-    {
-        return $this->timePublished;
-    }
-
-    public function setTimePublished(?\DateTimeInterface $timePublished): self
-    {
-        $this->timePublished = $timePublished;
-
-        return $this;
-    }
-
-
     public function getSlug()
     {
         return $this->slug;
     }
 
-    /**
-     * @param mixed $slug
-     */
-    public function setSlug($slug): void
+
+    public function setSlug(string $slug): void
     {
         $this->slug = $slug;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getImage()
+
+    public function getImage(): ?string
     {
         return $this->image;
     }
 
-    /**
-     * @param mixed $image
-     */
-    public function setImage($image): void
+
+    public function setImage(string $image): void
     {
         $this->image = $image;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getImageWebLocation()
+
+    public function getImageWebLocation(): ?string
     {
         return $this->imageWebLocation;
     }
 
-    /**
-     * @param mixed $imageWebLocation
-     */
-    public function setImageWebLocation($imageWebLocation): void
+
+    public function setImageWebLocation(string $imageWebLocation): void
     {
         $this->imageWebLocation = $imageWebLocation;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getExcerpt()
+
+    public function getExcerpt(): ?string
     {
         return $this->excerpt;
     }
 
-    /**
-     * @param mixed $excerpt
-     */
-    public function setExcerpt($excerpt): void
+
+    public function setExcerpt(string $excerpt): void
     {
         $this->excerpt = $excerpt;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getThumbnailImage()
+
+    public function getThumbnailImage(): ?string
     {
         return $this->thumbnailImage;
     }
 
-    /**
-     * @param mixed $thumbnailImage
-     */
-    public function setThumbnailImage($thumbnailImage): void
+
+    public function setThumbnailImage(string $thumbnailImage): void
     {
         $this->thumbnailImage = $thumbnailImage;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getThumbnailImageWebLocation()
+
+    public function getThumbnailImageWebLocation(): ?string
     {
         return $this->thumbnailImageWebLocation;
     }
 
-    /**
-     * @param mixed $thumbnailImageWebLocation
-     */
-    public function setThumbnailImageWebLocation($thumbnailImageWebLocation): void
+
+    public function setThumbnailImageWebLocation(string $thumbnailImageWebLocation): void
     {
         $this->thumbnailImageWebLocation = $thumbnailImageWebLocation;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getIsPublished()
+    public function getIsPublished(): bool
     {
         return $this->isPublished;
     }
 
-    /**
-     * @param mixed $isPublished
-     */
-    public function setIsPublished($isPublished): void
+    public function setIsPublished(bool $isPublished): void
     {
         $this->isPublished = $isPublished;
     }

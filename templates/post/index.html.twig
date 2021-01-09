@@ -27,7 +27,7 @@
                 {% for post in posts %}
                 <div class="item mb-5">
                     <div class="media">
-                        <img class="mr-3 img-fluid post-thumb d-none d-md-flex" src="{{ asset(post.imageWebLocation) }}" alt="image">
+                        <img class="mr-3 img-fluid post-thumb d-none d-md-flex" src="{{ asset(post.thumbnailImageWebLocation) }}" alt="image">
                         <div class="media-body">
                             <h3 class="title mb-1"><a href="{{ path('single-post', {'slug': post.slug}) }}">{{ post.title }}</a></h3>
                             <div class="meta mb-1"><span class="date">Published 2 days ago</span><span class="time">5 min read</span><span class="comment"><a href="#">8 comments</a></span></div>

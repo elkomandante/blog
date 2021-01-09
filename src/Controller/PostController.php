@@ -26,7 +26,7 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route(path="/posts/{pageNumber}", name="post-list-front")
+     * @Route(path="/posts/{pageNumber}", name="post-list-front", requirements = {"pageNumber"= "\d+"})
      * @param PostService $postService
      * @return Response
      */

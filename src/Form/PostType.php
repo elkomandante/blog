@@ -21,6 +21,15 @@ class PostType extends AbstractType
                     new NotBlank()
                 ]
             ])
+            ->add('metaTitle', null, [
+
+            ])
+            ->add('metaDescription', null, [
+
+            ])
+            ->add('metaKeywords', null, [
+
+            ])
             ->add('content', CKEditorType::class, [
                 'constraints' => [
                     new NotBlank()
